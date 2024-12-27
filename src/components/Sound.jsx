@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { Volume2, VolumeX } from "lucide-react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { createPortal } from "react-dom";
 
 const Modal = ({ onClose, toggle }) => {
@@ -29,7 +29,6 @@ const Modal = ({ onClose, toggle }) => {
         </div>
       </div>
     </div>,
-
     document.getElementById("my-modal")
   );
 };
@@ -39,7 +38,7 @@ const Sound = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
-  const handleFirstUserInteraction = () => {
+  const handleFirstUserInteraction = useCallback(() => {
     const musicConsent = localStorage.getItem("musicConsent");
     if (musicConsent === "true" && !isPlaying) {
       audioRef.current.play();
@@ -49,7 +48,7 @@ const Sound = () => {
     ["click", "keydown", "touchstart"].forEach((event) =>
       document.removeEventListener(event, handleFirstUserInteraction)
     );
-  };
+  }, [isPlaying]);
 
   useEffect(() => {
     const consent = localStorage.getItem("musicConsent");
@@ -70,16 +69,17 @@ const Sound = () => {
     } else {
       setShowModal(true);
     }
-  }, []);
+  }, [handleFirstUserInteraction]);
 
   const toggle = () => {
     const newState = !isPlaying;
-    setIsPlaying(!isPlaying);
+    setIsPlaying(newState);
     newState ? audioRef.current.play() : audioRef.current.pause();
     localStorage.setItem("musicConsent", String(newState));
     localStorage.setItem("consentTime", new Date().toISOString());
     setShowModal(false);
   };
+
   return (
     <div className="fixed top-4 right-2.5 xs:right-4 z-50 group">
       {showModal && (
@@ -87,8 +87,8 @@ const Sound = () => {
       )}
 
       <audio ref={audioRef} loop>
-        <source src={"/audio/birds39-forest-20772.mp3"} type="audio/mpeg" />
-        your browser does not support the audio element.
+        <source src={"/audio/birds-forest-sounds.mp3"} type="audio/mpeg" />
+        Your browser does not support the audio element.
       </audio>
       <motion.button
         onClick={toggle}

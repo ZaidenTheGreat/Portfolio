@@ -27,19 +27,13 @@ export const projectsData = [
   {
     id: 2,
     name: "Jarvis AI",
-    description: "An AI Assistant based off IornMans Jarvis Ask it [] Created using Python, HTML, CSS, Java",
+    description: "An AI Assistant based off IornMan's Jarvis Ask it [anything] Created using Python, HTML, CSS, Java",
     date: "2024-09-20",
     demoLink: "https://guileless-truffle-05e79e.netlify.app/",
   },
+  
   {
     id: 3,
-    name: "Leet Code Clone",
-    description: "A Clone of Leet Code created using React, Next.Js, Type Script, Tailwind CSS, Firebase",
-    date: "2024-09-10",
-    demoLink: "https://leetcode-clone-phi.vercel.app/",
-  },
-  {
-    id: 4,
     name: "Studio Aspen Gaming Project (in progress)",
     description: "Collaborated in a team of over 50 members to develop a third-person fighting game. Assigned to the Combat Team, where I was responsible for programming the combat mechanics of the main character, including attack animations, hit detection, and combo logic.",
     date: "2025-09-December",
